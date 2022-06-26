@@ -1,0 +1,27 @@
+{
+  "name": "redanthrax.dev",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "repository": "https://git.redanthrax.com/redanthrax/redanthrax.dev.git",
+  "author": "redanthrax <redanthraxx@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "@typescript-eslint/types": "^5.23.0",
+    "eslint": "^8.15.0",
+    "globby": "^13.1.1",
+    "typescript": "^4.6.4",
+    "vitepress": "^1.0.0-alpha.4"
+  },
+  "scripts": {
+    "dev": "vitepress dev app",
+    "build": "vitepress build app",
+    "serve": "vitepress serve app"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "vue": "^3.2.33"
+  }
+}

@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redanthrax-dev
+  labels:
+    app: redanthrax-dev
+  namespace: redanthrax-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redanthrax-dev
+  template:
+    metadata:
+      labels:
+        app: redanthrax-dev
+    spec:
+      containers:
+      - name: redanthrax-dev
+        image: docker.redanthrax.com/redanthrax.dev:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redanthrax-dev
+  namespace: redanthrax-dev
+spec:
+  selector:
+    app: redanthrax-dev
+  ports:
+    - protocol: TCP
+      port: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: redanthrax-dev
+  namespace: redanthrax-dev
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+  - host: redanthrax.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: redanthrax-dev
+            port:
+              number: 80
+  - host: redanthrax.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: redanthrax-dev
+            port:
+              number: 80
+  - host: hazardbrick.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: redanthrax-dev
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - redanthrax.dev
+    secretName: redanthrax-dev-tls
+  - hosts:
+    - redanthrax.com
+    secretName: redanthrax-com-tls
+  - hosts:
+    - hazardbrick.com
+    secretName: hazardbrick-com-tls

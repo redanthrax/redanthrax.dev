@@ -1,0 +1,28 @@
+:root {
+  --vp-c-brand: #e04006;
+  --vp-home-hero-name-color: #e04006;
+}
+
+.postcard {
+  margin: 20px auto;
+  width: 80%; 
+  border: 2px solid #e04006;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.postcard .post-excerpt {
+  margin: 10px 0;
+}
+
+.postcard a {
+  color: #e04006;
+}
+
+.postcard a:hover {
+  color: #06a6e0;
+}
+
+.postcard .post-title {
+  font-size: 1.96rem;
+}

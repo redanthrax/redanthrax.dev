@@ -1,0 +1,9 @@
+*.log
+.vite_opt_cache
+dist
+node_modules
+TODOs.md
+.vscode
+.idea
+pnpm-global
+.vitepress/dist/

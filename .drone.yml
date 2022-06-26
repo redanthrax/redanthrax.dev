@@ -1,0 +1,32 @@
+kind: pipeline
+type: kubernetes
+name: default
+
+steps:
+- name: build
+  image: node:lts-alpine
+  commands:
+  - npm install
+  - npm run build
+- name: push
+  image: plugins/docker
+  settings:
+    repo: docker.redanthrax.com/redanthrax.dev
+    registry: docker.redanthrax.com
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    tags: [ "${DRONE_COMMIT_SHA:0:7}","latest" ]
+- name: publish
+  image: sinlead/drone-kubectl
+  settings:
+    kubernetes_server:
+      from_secret: k8s_server
+    kubernetes_cert:
+      from_secret: k8s_cert
+    kubernetes_token:
+      from_secret: k8s_token
+  commands:
+    - kubectl apply -f deployment.yaml
+    - kubectl rollout restart deployment redanthrax-dev --namespace redanthrax-dev
