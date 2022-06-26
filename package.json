@@ -2,7 +2,7 @@
   "name": "redanthrax.dev",
   "version": "1.0.0",
   "main": "index.ts",
-  "repository": "https://git.redanthrax.com/redanthrax/redanthrax.dev.git",
+  "repository": "https://github.com/redanthrax/redanthrax.dev.git",
   "author": "redanthrax <redanthraxx@gmail.com>",
   "license": "MIT",
   "devDependencies": {
