@@ -3,9 +3,13 @@
   --vp-home-hero-name-color: #e04006;
 }
 
+.posts {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
 .postcard {
   margin: 20px auto;
-  width: 80%; 
   border: 2px solid #e04006;
   border-radius: 5px;
   padding: 10px;

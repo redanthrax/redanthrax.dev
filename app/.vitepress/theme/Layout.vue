@@ -6,6 +6,5 @@
 
 <template>
   <Layout>
-    <template #navbar-search><ToggleTheme /></template>
   </Layout>
 </template>
