@@ -161,8 +161,19 @@ conn client2
     ike=aes256-sha1-modp1024
     esp=aes256-sha1
 ```
+- Generate a Pre-Shared key
+```
+head -c 24 /dev/urandom | base64
+```
+- Set the IPSec Pre-Shared Key by editing /etc/ipsec.secrets
+```
+# VMPublicIP   MXPublicIP
+20.xxx.xxx.28 203.xxx.xxx.242 : PSK "YourPreSharedKey!"
+```
+- Configure the connection on the Meraki FW.
 - Bring up the connection.
 ```
+sudo ipsec restart
 sudo ipsec up client2
 ```
 - Validate the connection status.
@@ -268,3 +279,13 @@ sudo cp /etc/systemd/system/filebeat-client1.service /etc/systemd/system/filebea
 ```
 sudo systemctl daemon-reload && sudo systemctl enable filebeat-client2.service && sudo systemctl start filebeat-client2.service
 ```
+
+## Send Meraki Logs
+
+- Navigate to Network Wide -> General -> Configure in the Meraki Dashboard.
+- Add a syslog server for the LAN IP of the log shipper server.
+- Select all logs.
+- Validate the logs are ingesting into your logging software.
+
+## Post Setup
+- Take the necessary steps in SELinux to button up the system.
