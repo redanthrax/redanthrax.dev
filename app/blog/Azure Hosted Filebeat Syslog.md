@@ -208,23 +208,27 @@ sudo mkdir /etc/filebeat/configs
 - Edit /etc/filebeat/configs/client1.yml
 - Change the syslog_port to an unused port.
 ```
-filebeat.config.modules:
-    path: ${path.config}/modules.d/*.yml
-    reload.enabled: false
+filebeat.config:
+	modules:
+		enabled: true
+		path: modules.d/*.yml
+		reload.enabled: true
+		reload.period: 10s
 output.elasticsearch:
     hosts: ["ingest.perchsecurity.com:443/elastic"]
     headers:
     X-Perch-Header: "Perch API Key"
     protocol: "https"
     compression_level: 5
+	allow_older_versions: true
 migration.6_to_7.enabled: true
 filebeat.modules:
-    - module: cisco
-        meraki:
-        enabled: true
-        var.syslog_host: 0.0.0.0
-        var.syslog_port: 42000
-        var.log_level: 5
+- module: cisco
+	meraki:
+	enabled: true
+	var.syslog_host: 0.0.0.0
+	var.syslog_port: 42000
+	var.log_level: 5
 ```
 - Create the Filebeat data directory for clients.
 ```
