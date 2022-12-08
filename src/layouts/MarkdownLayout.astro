@@ -1,9 +1,58 @@
 ---
-const { frontmatter } = Astro.props;
 import MainLayout from './MainLayout.astro';
+const { frontmatter, headings } = Astro.props;
+const date = new Date(frontmatter.date);
+const datetime = date.toISOString();
+import { Debug } from 'astro/components';
 ---
 <MainLayout pageTitle={frontmatter.title}>
-    <p>{frontmatter.date.slice(0,10)}</p>
-    <p>Written by: {frontmatter.author}</p>
-    <slot />
+    <div class="sm:grid sm:grid-cols-[3fr_1fr] sm:gap-x-10 sm:items-start">
+        <article>
+            <h1 class="title">{frontmatter.title}</h1>
+            <span class="flex flex-col sm:gap-y-2 md:flex-row md:items-center 
+                md:gap-y-0 md:divide-x md:divide-textColor">
+                <time {datetime} class="pr-2">{frontmatter.date.slice(0, 10)}</time>
+                {
+                    frontmatter.tags?.length && (
+                        <div class="flex items-center md:pl-2">
+                            <ul class="flex items-center ml-1 gap-x-2">
+                                {frontmatter.tags.map((tag) => (
+                                    <li>
+                                        <a
+                                            class="inline-block cactus-link"
+                                            aria-label={`View more blogs with the tag ${tag}`}
+                                            href={`/tags/${tag}`}
+                                        >
+                                            &#35;{tag}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                }
+            </span>
+            <p class="mt-8">{frontmatter.description}</p>
+            <div class="mt-12 prose prose-sm prose-cactus 
+                prose-headings:font-semibold prose-headings:before:content-['#'] 
+                prose-headings:before:text-accent prose-headings:before:absolute 
+                prose-headings:before:-ml-4 prose-th:before:content-none">
+                <slot />
+            </div>
+        </article>
+        <aside class="invisible hidden text-right sm:sticky sm:top-20 sm:block sm:visible">
+            <h2 class="font-semibold">Table of Contents</h2>
+            <ul class="mt-4 text-xs space-y-2">
+                {
+                    headings.map(({ slug, text }) => (
+                        <li class="line-clamp-2 hover:text-accent">
+                            <a href={`#${slug}`} aria-label={`Scroll to section: ${text}`}>
+                                <span>&#35;</span> {text}
+                            </a>
+                        </li>
+                    ))
+                }
+            </ul>
+        </aside>
+    </div>
 </MainLayout>

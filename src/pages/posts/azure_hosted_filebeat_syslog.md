@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownLayout.astro
+layout: "@/layouts/MarkdownLayout"
 date: 2022-07-06
 title: Setting up Azure Hosted Filebeat Syslog Relay with VPN
 author: redanthrax

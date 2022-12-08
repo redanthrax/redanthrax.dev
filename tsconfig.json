@@ -3,9 +3,8 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-		    "@/types": ["src/types.ts"],
-			"@/util": ["src/util.ts"],
-            "@/components/*": ["src/components/*.astro"]
+            "@/layouts/*": ["src/layouts/*.astro"],
+            "components/*": ["src/components/*.astro"]
         }
     }
 }
