@@ -1,0 +1,42 @@
+---
+import ThemeIcon from './ThemeIcon.astro';
+---
+
+<header>
+    <span>
+        <a href="/" class="logo">
+            <span class="flex">
+                red.dev
+            </span>
+        </a>
+        <nav id="nav-menu">
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/blog">Blog</a>
+        </nav>
+    </span>
+    <ThemeIcon />
+</header>
+
+<style>
+	header {
+		@apply relative z-50 mb-28 flex items-center;
+
+
+		.logo {
+			@apply inline-flex items-center grayscale hover:filter-none sm:relative sm:inline-block;
+
+			> span {
+				@apply text-3xl font-bold;
+			}
+		}
+
+        nav {
+            @apply mt-1 -ml-4 hidden text-accent sm:flex sm:divide-x sm:divide-dashed sm:divide-accent;
+
+            a {
+                @apply px-4 sm:hover:underline;
+            }
+        }
+    }
+</style>

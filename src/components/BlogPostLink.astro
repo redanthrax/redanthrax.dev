@@ -1,0 +1,9 @@
+---
+const { date, url, title } = Astro.props;
+---
+<li class="[&_q]:w-full flex flex-wrap items-center gap-x-2">
+    <time {date} class="min-w-[120px] text-gray-500">{date}</time>
+	<a href={url} class="inline-block cactus-link line-clamp-1">
+		{title}
+	</a>
+</li>

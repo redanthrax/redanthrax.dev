@@ -1,0 +1,18 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import BlogPostLink from '../components/BlogPostLink.astro';
+const allPosts = await Astro.glob('../pages/posts/*.md');
+const sorted = allPosts.sort(
+                (a, b) =>
+                    new Date(b.frontmatter.date).valueOf() -
+                    new Date(a.frontmatter.date).valueOf()
+            );
+---
+
+<MainLayout>
+	<ul class="space-y-4 sm:space-y-2">
+        {
+            sorted.map((post) => <BlogPostLink date={post.frontmatter.date.slice(0, 10)} url={post.url} title={post.frontmatter.title} />)
+        }
+    </ul>
+</MainLayout>
