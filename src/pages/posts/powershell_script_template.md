@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownLayout.astro
+layout: "@/layouts/MarkdownLayout"
 date: 2022-05-16
 title: Powershell Script Template
 author: redanthrax

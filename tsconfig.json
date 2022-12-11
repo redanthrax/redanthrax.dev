@@ -4,7 +4,8 @@
         "baseUrl": ".",
         "paths": {
             "@/layouts/*": ["src/layouts/*.astro"],
-            "components/*": ["src/components/*.astro"]
+            "@components/*": ["src/components/*.astro"],
+            "@/octokit": ["src/octokit.ts"]
         }
     }
 }
