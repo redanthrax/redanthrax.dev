@@ -1,0 +1,17 @@
+---
+const { project, url, language, description, pushed, commits } = Astro.props;
+---
+
+<div class="sm:grid sm:grid-cols-[3fr_1fr] sm:gap-x-10 sm:items-start">
+    <article>
+        <h2 class="text-xl">
+            <a target="_blank" href={url}>{project}</a>
+        </h2>
+        <span class="inline-block">
+            <time {pushed} class="pr-2">Last Pushed: {pushed.toLocaleDateString()}</time>
+            <span class="text-accent">{language}</span>
+            <span>Commits: {commits}</span>
+        </span>
+        <p class="mt-2 mb-4">{description}</p>
+    </article>
+</div>
