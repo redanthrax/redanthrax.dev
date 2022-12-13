@@ -5,14 +5,16 @@ const octokit = new Octokit({
 });
 
 export async function getProjects() {
-    const projectsData = await octokit.rest.repos.listForUser(
-        { username: "redanthrax", archived: false, disabled: false});
-    const projects = await Promise.all(projectsData.data.map(async (project) => ({
+    const projectsData = await octokit.paginate(octokit.rest.repos.listForUser, {
+        username: "redanthrax", archived: false, disabled: false
+    });
+
+    const projects = await Promise.all(projectsData.map(async (project) => ({
         ...project,
         commits: await getCommits(project.name),
         pushed: new Date(Date.parse(project.pushed_at))
     })));
-    
+
     return projects
         .filter(p => p.commits > 0)
         .sort((a, b) => b.pushed - a.pushed);
