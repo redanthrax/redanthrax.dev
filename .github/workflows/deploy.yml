@@ -1,0 +1,25 @@
+name: website deployment
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy
+    steps:
+      - uses: actions/checkout@master
+      
+      - name: Bucket actions
+        uses: actions/setup-node@v1
+      - run: npm i
+      - run: npm run build
+
+      - name: Publish
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.KEY }}
+        with:
+          source: "./dist/*"
+          target: "/var/www/redanthrax.dev"
+          strip_components: 1
