@@ -199,6 +199,15 @@ efibootmgr --disk /dev/nvme0n1 --part 1 --create --label "Arch Linux" --loader
 resume=/dev/mapper/root resume_offset=yyyy rw initrd=\intel-ucode.img 
 initrd=\initramfs-linux.img' --verbose
 ```
+### NOTE: On an NVidia system I ran into a kernel bug that required an efistub change
+
+Notice the ibt=off
+```bash
+efibootmgr --disk /dev/nvme0n1 --part 1 --create --label "Arch Linux" --loader
+/vmlinuz-linux --unicode 'cryptdevice=UUID=xxxx:root root=/dev/mapper/root 
+resume=/dev/mapper/root resume_offset=yyyy rw ibt=off initrd=\intel-ucode.img 
+initrd=\initramfs-linux.img' --verbose
+```
 ## Install Network Manager
 ```bash
 pacman -S networkmanager
@@ -310,7 +319,7 @@ Configure PowerLevel10k.
 ```bash
 p10k configure
 ```
-## Install login prompt
+## Install display manager
 
 Install LightDM Mini Greeter
 ```bash
@@ -385,6 +394,10 @@ Open neovim and use the following command.
 ```bash
 :PackerSync
 ```
+Run checkhealth and resolve warnings/errors
+```bash
+:checkhealth
+```
 ## Install a web browser
 ```bash
 yay -S brave-bin
@@ -436,12 +449,46 @@ echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/99-swappiness.conf
 Install drivers
 ```bash
 sudo pacman -S nvidia nvidia-utils nvidia-settings \
-xorg-server-devel opencl-nvidia nvidia-prime optimus-manager \
-optimus-manager-qt
+xorg-server-devel opencl-nvidia nvidia-prime
 ```
 Verify nouveau are blacklisted.
 ```bash
 cat /usr/lib/modprobe.d/nvidia.conf
+```
+Add nvidia to initramfs.
+```bash
+sudo nvim /etc/mkinitcpio.conf
+```
+```bash
+MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+```
+Rebuild initramfs
+```bash
+mkinitcpio -P
+```
+Setup pacman hook to rebuild initramfs.
+```bash
+/etc/pacman.d/hooks/nvidia.hook
+```
+```bash
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+Target=linux
+
+[Action]
+Description=Update NVIDIA module in initcpio
+Depends=mkinitcpio
+When=PostTransaction
+NeedsTargets
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+```
+Install optimus-manager and optimus-manager-qt
+```bash
+yay -S optimus-manager optimus-manager-qt
 ```
 Get the BusID of the nvidia card.
 ```bash
@@ -496,9 +543,27 @@ sudo mkinitcpio -P
 Reboot
 
 ## Network Manager Applet
-
 ```bash
 yay -S network-manager-applet
 ```
+## Update .xprofile
+```bash
+nvim .xprofile
+```
+```bash
+#!/bin/sh
+prime-offload && optimus-manager-qt &
+/usr/local/bin/slstatus &
+/usr/bin/picom -f -b &
+/usr/bin/nm-applet &
+```
+## Set Dark Mode
 
-Add nm-applet to .xprofile
+Install the package xfce4-settings
+```bash
+sudo pacman -S xfce4-settings
+```
+Set your default theme to Adwaita-dark
+```bash
+xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+```
