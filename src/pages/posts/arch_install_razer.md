@@ -566,4 +566,5 @@ sudo pacman -S xfce4-settings
 Set your default theme to Adwaita-dark
 ```bash
 xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 ```
