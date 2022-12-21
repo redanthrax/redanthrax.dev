@@ -568,3 +568,17 @@ Set your default theme to Adwaita-dark
 xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 ```
+## Multi Monitor Setup
+
+I have my 1080p gaming monitor setup next to my 1440p laptop.
+DPI is still an issue in linux so I've set my DPI via .Xresources file.
+```bash
+Xft.dpi: 124
+```
+Here is my layout.sh file that I run on login to get my monitor layout to look
+correct. The idea is to transform the smaller screen to a larger resolution
+to match the laptop monitor. Then use a DPI that I find readable.
+```bash
+xrandr --output eDP-1-1 --mode 2560x1440 --pos 2496x0 --rotate normal
+xrandr --output HDMI-0 --mode 1920x1080 --transform 1.3,0,0,0,1.3,0,0,0,1 --fb 2496x1404
+```
