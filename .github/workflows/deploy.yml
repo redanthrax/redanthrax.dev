@@ -1,3 +1,5 @@
+env:
+  GITHUB: ${{ secrets.GITHUB }}
 name: website deployment
 on: [push]
 jobs:
