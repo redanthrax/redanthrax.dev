@@ -55,6 +55,20 @@ This will give you a new RADIUS endpoint that Duo will use to authenticate.
 
 Expand the endpoint to get the details.
 
+NOTE: Users will not show up in Portnox until they attempt authentication.
+
+## Client Azure Tenant
+
+Portnox does not complete admin consent for all the Enterprise Applications
+that it needs.
+
+- Navigate to Enterprise Applications in the clients Azure Tenant.
+- Find the application "Portnox CLEAR AgentP Enrollment".
+- Click Permissions.
+- Grant Admin Consent
+
+Double-check any other Portnox apps to validate they have admin consent.
+
 ## Duo
 
 Create a new Account for the company then switch to that account in Duo.
@@ -158,4 +172,8 @@ it on your VM.
 
 Start the auth proxy for the client.
 ```bash
-sudo systemct
+sudo systemct start client_authproxy
+```
+## Follow up
+
+Be sure to test the configuration.
