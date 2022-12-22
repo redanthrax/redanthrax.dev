@@ -37,13 +37,14 @@ Follow the instructions to authenticate with Azure AD.
 
 Navigate to Groups and create a new group. I call mine OrgName Access.
 
-Edit the group and enable VPN Access. Default settings should be fine.
+Edit the group and enable VPN Access.
+
+In order to authenticate without the Agent P software be sure to uncheck the
+Validate Risk Score for all managed devices.
 
 Go to Members in the group and select AZURE AD.
 
 Select the Azure AD group that will have VPN access.
-
-It can take a while for the accounts to sync.
 
 Navigate to Settings. Click Services. Expand CLEAR RADIUS SERVICE.
 
