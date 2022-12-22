@@ -69,6 +69,10 @@ that it needs.
 
 Double-check any other Portnox apps to validate they have admin consent.
 
+If you have Conditional Access Policies restricting login make sure you add
+the Portnox IP to the policy since it will be single factor login from portnox
+on the clients behalf.
+
 ## Duo
 
 Create a new Account for the company then switch to that account in Duo.
