@@ -323,11 +323,12 @@ p10k configure
 
 Install LightDM Mini Greeter
 ```bash
-yay -S lightdm-mini-greeter
+yay -S lightdm-gtk-greeter lightdm-mini-greeter
 sudo nvim /etc/lightdm/lightdm.conf
 ```
 Add the following configurations to the config under [Seat:*]
 ```bash
+greeter-session=lightdm-mini-greeter
 user-session=dwm
 session-wrapper=/etc/lightdm/Xsession
 ```
@@ -468,7 +469,8 @@ mkinitcpio -P
 ```
 Setup pacman hook to rebuild initramfs.
 ```bash
-/etc/pacman.d/hooks/nvidia.hook
+sudo mkdir /etc/pacman.d/hooks
+sudo nvim /etc/pacman.d/hooks/nvidia.hook
 ```
 ```bash
 [Trigger]
@@ -582,3 +584,4 @@ to match the laptop monitor. Then use a DPI that I find readable.
 xrandr --output eDP-1-1 --mode 2560x1440 --pos 2496x0 --rotate normal
 xrandr --output HDMI-0 --mode 1920x1080 --transform 1.3,0,0,0,1.3,0,0,0,1 --fb 2496x1404
 ```
+You may need to run it twice.
