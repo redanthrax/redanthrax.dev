@@ -292,6 +292,12 @@ sudo chown -R red:red ./yay-git
 cd yay-git
 makepkg -si
 ```
+# Notifications
+
+Install notification helper
+```bash
+yay -S dunst
+```
 ## Setup shell
 ```bash
 sudo pacman -S zsh
