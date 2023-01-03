@@ -11,6 +11,9 @@ Recently I've been running [Tactical RMM](https://github.com/amidaware/tacticalr
 I have taken an "RMM Agnostic" approach to my scripting techniques. From using that technique a type of template has 
 emerged which I will immortalize here.
 
+## Example Usage
+[Complete Script Example](https://github.com/redanthrax/community-scripts/blob/main/scripts/Win_Sophos_EndpointProtection_Install.ps1)
+
 ## Powershell Script Template
 ```
 Script_Full_Name.ps1

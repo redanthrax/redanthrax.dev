@@ -3,7 +3,7 @@ layout: "@/layouts/MarkdownLayout"
 date: 2022-12-15
 title: Installing Arch Linux on Razer Laptop
 author: redanthrax
-tags: ["arch", "arch"]
+tags: ["arch", "razer", "nvidia"]
 description: Documentation of my Arch setup on a new Razer laptop
 ---
 
